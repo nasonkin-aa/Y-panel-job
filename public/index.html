@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./index.css"/>
+    <script src="./libs/axios.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="table">
+        <div class="table__row table__header">
+            <div>Номер</div>
+            <div>Название</div>
+            <div>IP</div>
+            <div class="btn__container">
+                <button class="btn__power btn__powerAll" onclick="runCommandAll('on')">Включить все</button>
+                <button class="btn__power btn__powerAll" onclick="runCommandAll('off')">Выключить все</button>
+            </div>
+        </div>
+        <div class="table__body">
+            <div class="eqs__list">
+            </div>
+        </div>
+    </div>
+</body>
+<script src="./index.js"></script>
+</html>
