@@ -2,9 +2,12 @@ import express from 'express';
 import router from './router/index';
 import cors from 'cors';
 import { openDB } from './db';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.BACKEND_PORT || 3000;
 
 process.on('uncaughtException', function (err) {
   console.log('Caught exception: ', err);
@@ -21,3 +24,4 @@ openDB()
     });
   })
   .catch((err) => console.error(err));
+

@@ -2,7 +2,7 @@
 export interface TEquipment {
   id: number,
   ip: string,
-  port: number,
+  port?: number,
   name: string,
   number: string,
 	type: EqTypes,

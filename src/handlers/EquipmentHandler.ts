@@ -50,7 +50,6 @@ class EquipmentHandler {
           const commandRes = await eq[body.command]();
           console.log(commandRes);
           res.send(commandRes);
-      
         } else {
           res.statusCode = 418;
           res.send({error: "Command not found"});

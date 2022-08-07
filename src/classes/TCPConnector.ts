@@ -22,7 +22,7 @@ export default class TCPConnector {
 
   constructor(eq: TEquipment) {
     this.ip = eq.ip;
-    this.port = eq.port;
+    this.port = eq.port!;
     this.name = eq.name;
     this.id = eq.id;
     this.type = eq.type;

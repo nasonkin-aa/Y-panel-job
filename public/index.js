@@ -87,6 +87,8 @@ const runCommandAll = async (command) => {
 
         if (!response.data) return;
 
+        console.log(response.data);
+
         response.data.forEach((el, idx) => {
             if (el.value) {
                 const isOn = command == 'on';
