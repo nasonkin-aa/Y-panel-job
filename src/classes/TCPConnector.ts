@@ -28,7 +28,7 @@ export default class TCPConnector {
     this.type = eq.type;
     this.number = eq.number;
 
-    this.connect();
+    // this.connect();
   }
 
 

@@ -9,4 +9,5 @@ export default class Cube extends TCPConnector implements IEquipment {
   off() {
     return super.powerOff('SET(0;Power;0)');
   }
+ 
 }

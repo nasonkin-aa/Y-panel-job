@@ -39,7 +39,16 @@ const addRow = (group, parent) => {
         row.appendChild(document.createElement('div')).innerHTML = group[0].name;
         row.appendChild(document.createElement('div')).innerHTML = group[0].ip;
 
-        let btn = row.appendChild(document.createElement('button'));
+        if (group[0].type == '1') {
+            row.classList.add('table_row_5');
+            const humidity = row.appendChild(document.createElement('div'));
+            getHumidity(humidity, group[0].id);
+
+        }
+
+        let btnWrp =  row.appendChild(document.createElement('div'));
+        btnWrp.classList.add('btn__wrp');
+        let btn = btnWrp.appendChild(document.createElement('button'));
         btn.innerHTML = group[0].number;
         btn.classList.add('btn__power');
         btn.active = group[0].active;
@@ -92,9 +101,9 @@ const runCommandAll = async (command) => {
                 const isOn = command == 'on';
                 btns[idx + 3].active = isOn;
                 
-
                 if (isOn) {
                     btns[idx + 3].classList.add('active');
+                    btns.changeCondition(idx)
                 } else {
                     btns[idx + 3].classList.remove('active');
                 }
@@ -103,6 +112,16 @@ const runCommandAll = async (command) => {
     } catch (error) {
         console.error(error);
     }
+}
+
+const getHumidity = async (el, id) => {
+    const response = await axios.post('/api/humidity', { id });
+    el.innerHTML = response.data;
+
+    // ! abort controller
+    setInterval(() => {
+        getHumidity(el, id);
+    }, 15000);
 }
 
 window.onload = () => {

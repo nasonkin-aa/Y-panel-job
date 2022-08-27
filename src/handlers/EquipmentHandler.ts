@@ -1,4 +1,4 @@
-import e, { Request, Response } from "express";
+import { Request, Response } from "express";
 import AquaStadium from "../classes/AquaStadium";
 import BarcoProjector from "../classes/BarcoProjector";
 import ContinentalDrift from "../classes/ContinentalDrift";
