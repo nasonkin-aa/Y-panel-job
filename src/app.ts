@@ -11,7 +11,7 @@ process.on('uncaughtException', function (err) {
 });
 
 // app.use(express.static('./public'));
-app.set('views', './pages/views');
+app.set('views', 'src/pages/views');
 app.set('view engine', 'pug');
 
 app.use(router);

@@ -3,8 +3,10 @@ import HTTPConnector from './HTTPConnector';
 
 export default class HallScreen extends HTTPConnector implements IEquipment {
   on() {
-    this.onRGB();
-    return super.powerOn('/cmd.cgi?cmd=REL,1,1');
+    // this.onRGB();
+    // return super.powerOn('/cmd.cgi?cmd=REL,1,1');
+
+    return Promise.resolve(true);
   }
 
   onRGB(){

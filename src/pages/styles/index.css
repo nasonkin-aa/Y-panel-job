@@ -25,6 +25,24 @@ body {
     align-items: center;
     padding: 8px;
 }
+
+.btn__power {
+    width: 200px;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 8px;
+    border-radius: 8px;
+    border: 0;
+    color: #fff;
+    background: #81C784;
+    cursor: pointer;
+}
+
+.btn__power.active {
+    color: #fff;
+    background: #3030ff;
+}
+
 /* стилизация details общая - начало */
 
 summary::-webkit-details-marker {

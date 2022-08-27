@@ -1,4 +1,7 @@
 doctype html
+include ../mixins/row.pug
+include ../mixins/details.pug
+
 html(lang="en")
   head
     meta(charset="UTF-8")
@@ -7,9 +10,10 @@ html(lang="en")
     title Document
   style
     include ../styles/index.css
+  script
+    include ../js/libs/axios.min.js
+    include ../js/index.js
   body
-    include ../mixins/row.pug
-    include ../mixins/details.pug
     .table
       include ../templates/header.pug
       each el in eqs
