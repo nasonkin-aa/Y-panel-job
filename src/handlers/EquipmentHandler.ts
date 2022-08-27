@@ -79,6 +79,10 @@ class EquipmentHandler {
         res.send('error for one of eqs');
       }
     }
+
+    runCommandForGroup() {
+      
+    }
 }
 
 export default new EquipmentHandler();
