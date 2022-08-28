@@ -4,8 +4,18 @@ import { TEquipment } from "../types";
 
 export default class PagesHandler {
   static async main(req: Request, res: Response) {
-    const eqs = await db?.all<TEquipment[]>('SELECT * FROM expositions') || [];
+    const result = await db?.all<TEquipment[]>('SELECT * FROM expositions') || [];
+
+    // im sorry for any type
+    const eqs = result.reduce((prev, curr) => {
+      const num = curr.number.trim();
+      (prev[num] = prev[num] || []).push(curr);
+
+      return prev;
+  }, {} as any);
+
+    console.log(eqs);
     
-    res.render('main', { title: 'hui', eqs });
+    res.render('main', { eqs });
   }
 }

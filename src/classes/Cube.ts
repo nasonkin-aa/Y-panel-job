@@ -1,4 +1,4 @@
-import { IEquipment, TEquipment } from '../types/index';
+import { EqCommand, IEquipment, TEquipment } from '../types/index';
 import TCPConnector from './TCPConnector';
 
 export default class Cube extends TCPConnector implements IEquipment {
@@ -9,5 +9,4 @@ export default class Cube extends TCPConnector implements IEquipment {
   off() {
     return super.powerOff('SET(0;Power;0)');
   }
- 
 }

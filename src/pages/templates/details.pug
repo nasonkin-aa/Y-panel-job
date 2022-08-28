@@ -1,6 +1,14 @@
 include ../mixins/row.pug
 
-details.table__row
-  summary AAAA
+- var ids = []
+  for eq in eqs
+    -  ids.push(eq.id)
+
+details
+  summary.table__row
+    .summary__title= number
+    .table__summary_btns.table__btns
+      button.btn__power( onclick="switchStatusForGroup([" + ids +  "], 'on')" ) Включить #{number}
+      button.btn__power( onclick="switchStatusForGroup([" + ids +  "], 'off')" ) Выключить #{number}
   each el in eqs 
     +row(el)

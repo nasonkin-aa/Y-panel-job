@@ -23,11 +23,16 @@ export enum EqTypes {
   WorldInDropWater = 7
 }
 
-// Тип для команд 
-export type EquipmentCommand = 'on' | 'off';
-
 // Формат запроса с клиента
 export type CommandRequest = {
 	id: number,
-	command: EquipmentCommand,
+	command: EqCommand,
 };
+
+export enum EqCommand {
+  // base commands
+  Off = 'off',
+  On = 'on',
+  // Barco commands
+  GetHumidity = 'getHumidity',
+}

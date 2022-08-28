@@ -16,6 +16,9 @@ html(lang="en")
   body
     .table
       include ../templates/header.pug
-      each el in eqs
-        +row(el)
+      each el, key in eqs
+        if el.length == 1
+          +row(el[0])
+        else
+          +details(el, key)
     

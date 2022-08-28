@@ -1,7 +1,15 @@
 .table__row
-  div= eq.name
-  div ds 
-  div fds 
-  div 
+  div= eq.number
+  div= eq.name 
+  div= eq.ip
+  if eq.type == 1
+    div( data-humidity_id= eq.id )
+  else
+    div
   div
-    button.btn__power( onclick="switchState(this," + eq.id + ")") click me
+    button.btn__power( 
+      id="btn_id_" + eq.id
+      data-status= eq.status
+      onclick="switchStatus(this," + eq.id + ")"
+      class= eq.status == "on" ? "active" : ""
+    ) Включить

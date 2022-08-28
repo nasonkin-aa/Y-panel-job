@@ -1,67 +1,55 @@
 import net from 'net';
-import axios from 'axios';
-import { EqTypes, TEquipment } from '../types';
-import EquipmnetInstance from '../handlers/EquipmnetInstance';
+import axios, { AxiosInstance, AxiosStatic } from 'axios';
+import { EqCommand, TEquipment } from '../types';
+import { db } from '../db';
 
 export default class HTTPConnector {
-  instance = axios;
-  ip = '';
-  
-  port = 0;
+  instance: AxiosInstance;
 
-  id: number;
-
-  name: string;
-
-  number: string;
-
-  type: EqTypes;
-
-  active?: boolean | undefined;
+  data: TEquipment;
 
   constructor(eq: TEquipment) {
-    this.ip = eq.ip;
-    this.port = eq.port;
-    this.name = eq.name;
-    this.id = eq.id;
-    this.type = eq.type;
-    this.number = eq.number;
+    this.data = eq;
 
- 
-    // this.instance.create({
-    //   baseURL: this.port ? `http://${this.ip}:${this.port}` : `http://${this.ip}`,timeout: 1000,
-    // });
+    const baseURL = `http://${this.data.ip}`;
+
+    this.instance = axios.create({
+      baseURL,
+    });
   }
-  async powerOn(request: string) {
-    EquipmnetInstance.getInstance().setEquipment(this.id);
-    const res = await this.instance.get(`http://${this.ip}`+request);
 
-    if (res.data) return true;
-    return false;
+  protected async powerOn(request: string) {
+    try {
+      // const res = await this.instance.get(request);
 
+      const res = { data: 'dsfsdf' };
 
-    //! сверху вариант для реал лайф теста
-    //! Ниже для домашнего
+      if (res.data) {
+        console.log('hello');
+        db?.run(`UPDATE expositions SET status = '${EqCommand.On}' WHERE id= ${this.data.id}`);
+        return true;
+      }
+    } catch (error) { 
+      console.error(error); 
+    }
     
-    // return new Promise<boolean>((resolve, reject) => {
-    //   //! Ниже для домашнего
-    //   //resolve(true);
-    // });
-  }
 
-  async powerOff(request: string) {
-    EquipmnetInstance.getInstance().delEquipment(this.id);
-    const res = await this.instance.get(`http://${this.ip}`+ request);
-
-    if (res.data) return true;
     return false;
-
-    //! сверху вариант для реал лайф теста
-    //! Ниже для домашнего
-    // return new Promise<boolean>((resolve, reject) => {
-    //   //! Ниже для домашнего
-    //  // resolve(true);
-    // });
   }
-  connect() {}
+
+  protected async powerOff(request: string) {
+    try {
+      // const res = await this.instance.get(request);
+      const res = { data: 'dsfsdf' };
+
+      if (res.data) {
+        db?.run(`UPDATE expositions SET status = '${EqCommand.Off}' WHERE id= ${this.data.id}`);
+        return true;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+
+    return false;
+  }
 }

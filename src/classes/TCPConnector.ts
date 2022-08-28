@@ -1,32 +1,16 @@
 import net from 'net';
-import EquipmnetInstance from '../handlers/EquipmnetInstance';
-import { EqTypes, TEquipment } from '../types';
+import { db } from '../db';
+import { EqCommand, EqTypes, TEquipment } from '../types';
 
 export default class TCPConnector {
-  instance = new net.Socket();
+  instance: net.Socket;
 
-  ip: string;
-
-  port: number;
-
-  id: number;
-
-  name: string;
-
-  number: string;
-
-  type: EqTypes;
-
-  active?: boolean | undefined;
+  data: TEquipment;
 
 
   constructor(eq: TEquipment) {
-    this.ip = eq.ip;
-    this.port = eq.port;
-    this.name = eq.name;
-    this.id = eq.id;
-    this.type = eq.type;
-    this.number = eq.number;
+    this.data = eq;
+    this.instance = new net.Socket();
 
     // this.connect();
   }
@@ -34,7 +18,7 @@ export default class TCPConnector {
 
   connect() {
     try {
-      this.instance.connect(this.port, this.ip, () => {
+      this.instance.connect(Number(this.data.port), this.data.ip, () => {
           console.log("Client: Connected to server");
           console.log(this.instance.read());
       });
@@ -43,26 +27,24 @@ export default class TCPConnector {
     }
     
   }
-  powerOn(request: string) {
-    EquipmnetInstance.getInstance().setEquipment(this.id);
 
-    return new Promise<boolean>((resolve, reject) => {
-      resolve(this.instance.write(request));
-      //console.log(this.instance.read());
-      //! сверху вариант для реал лайф теста
-      //! Ниже для домашнего
-     // resolve(true);
-    });
+  protected powerOn(request: string) {
+    db?.run(`UPDATE expositions SET status = '${EqCommand.On}' WHERE id= ${this.data.id}`);
+  
+    // return new Promise<boolean>((resolve, reject) => {
+    //   resolve(this.instance.write(request));
+    // });
+
+    return Promise.resolve(true);
   }
 
-  powerOff(request: string) {
-    EquipmnetInstance.getInstance().delEquipment(this.id);
+  protected powerOff(request: string) {
+    db?.run(`UPDATE expositions SET status = '${EqCommand.Off}' WHERE id= ${this.data.id}`);
 
-    return new Promise<boolean>((resolve, reject) => {
-      resolve(this.instance.write(request));
-      //! сверху вариант для реал лайф теста
-      //! Ниже для домашнего
-      //resolve(true);
-    });
+    // return new Promise<boolean>((resolve, reject) => {
+    //   resolve(this.instance.write(request));
+    // });
+
+    return Promise.resolve(true);
   }
 }

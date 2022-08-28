@@ -17,6 +17,17 @@ body {
     background-color: var(--color-primary) !important;
 }
 
+.table__summary_btns {
+    grid-column-start: 5;
+    grid-column-end: 6;
+}
+
+.table__btns {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
 .table__row{
     background-color: var(--color-primary-light);
     display: grid;
@@ -24,12 +35,15 @@ body {
     min-height: 40px;
     align-items: center;
     padding: 8px;
+    border-bottom: 1px solid var(--color-primary);
+}
+
+.table__row:hover {
+    background-color: #63a5b7;
 }
 
 .btn__power {
     width: 200px;
-    margin-right: auto;
-    margin-left: auto;
     padding: 8px;
     border-radius: 8px;
     border: 0;
@@ -53,14 +67,18 @@ summary {
     list-style: none;
 }
 
-summary::after {
+.summary__title::after {
     content: "\203A";
     margin-left: 10px;
     transition: transform .3s;
 }
 
-details[open] summary::after {
-    transform: rotate(90deg);
+details .table__row div:first-child {
+    padding-left: 32px;
+}
+
+details .table__row:first-child div:first-child {
+    padding-left: 0px;
 }
 
 

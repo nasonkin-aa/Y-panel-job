@@ -1,6 +1,3 @@
-// Имитация базы данных
-
-import { TEquipment } from '../types';
 import sqlite3 from 'sqlite3';
 import { Database, open } from 'sqlite';
 
@@ -13,9 +10,6 @@ const openDB = async () => {
   });
 }
 
-const Eq : TEquipment[] = [
-];
-// eslint-disable-next-line import/prefer-default-export
 export {
   openDB,
   db,
