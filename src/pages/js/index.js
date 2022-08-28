@@ -3,7 +3,7 @@ async function switchStatus(target, id) {
     const isActive = target.dataset.status === "on";
     const response = await axios.post('/api/command', { id, command: isActive ? 'off' : 'on'});
 
-    if(!response.data) return;
+    if(!response.data.success) return;
 
     target.classList.toggle('active');
     target.dataset.status = isActive ? 'off' : 'on';
@@ -17,7 +17,7 @@ async function switchStatusForGroup(group, status) {
     const el = document.getElementById(`btn_id_${id}`);
     const response = await axios.post('/api/command', { id, command: status});
 
-    if(!response.data) return;
+    if(!response.data.success) return;
 
     if (status === 'on') el.classList.add('active');
     else el.classList.remove('active');
@@ -38,11 +38,10 @@ async function getHumidity() {
   elements.forEach(async (el) => {
     const id = el.dataset.humidity_id;
     const response = await axios.post('/api/command', { id, command: 'getHumidity' });
-    console.log(response);
 
-    if (response) {
-      el.innerHTML = 'Влажность: ' + response.data;
-    }
+    if(!response.data.success) return;
+
+    el.innerHTML = 'Влажность: ' + response.data.payload;
   });
 }
 

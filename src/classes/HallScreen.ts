@@ -3,6 +3,7 @@ import HTTPConnector from './HTTPConnector';
 
 export default class HallScreen extends HTTPConnector implements IEquipment {
   on() {
+    // ! раскоментить для прода
     // this.onRGB();
     return super.powerOn('/cmd.cgi?cmd=REL,1,1');
   }
@@ -12,6 +13,7 @@ export default class HallScreen extends HTTPConnector implements IEquipment {
   }
 
   off() {
+    // ! раскоментить для прода
     // this.offRGB();
     return super.powerOff('/cmd.cgi?cmd=REL,1,0');
   }

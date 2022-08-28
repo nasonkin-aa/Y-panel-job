@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { db } from "../db";
 import { TEquipment } from "../types";
+import { response } from "../utils";
 
 export default class PagesHandler {
   static async main(req: Request, res: Response) {
@@ -13,9 +14,7 @@ export default class PagesHandler {
 
       return prev;
   }, {} as any);
-
-    console.log(eqs);
     
-    res.render('main', { eqs });
+    res.render('main', response(true, eqs));
   }
 }

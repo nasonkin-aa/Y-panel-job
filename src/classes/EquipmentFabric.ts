@@ -1,4 +1,5 @@
 import { EqCommand, EqTypes, IEquipment, TEquipment } from '../types';
+import { response } from '../utils';
 import AquaStadium from './AquaStadium';
 import BarcoProjector from './BarcoProjector';
 import ContinentalDrift from './ContinentalDrift';
@@ -22,13 +23,13 @@ export class EquipmentFabric {
     return new EqClass[data.type](data);
   }
 
-  static runCommand(data: TEquipment, command: EqCommand) {
+  static async runCommand(data: TEquipment, command: EqCommand) {
     const eq = this.create(data);
     
     switch (command) {
-      case EqCommand.On: return eq.on();
-      case EqCommand.Off: return eq.off();
-      case EqCommand.GetHumidity: return (eq as BarcoProjector).getHumidity();
+      case EqCommand.On: return response(await  eq.on());
+      case EqCommand.Off: return response(await  eq.off());
+      case EqCommand.GetHumidity: return response(true, (eq as BarcoProjector).getHumidity());
     }
   }
 }

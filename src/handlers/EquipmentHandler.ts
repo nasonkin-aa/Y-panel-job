@@ -3,12 +3,13 @@ import Cube from "../classes/Cube";
 import { EquipmentFabric } from "../classes/EquipmentFabric";
 import { db } from "../db";
 import { CommandRequest, EqTypes, IEquipment, TEquipment } from "../types";
+import { response } from "../utils";
 
 class EquipmentHandler {
     async getEquipments(req: Request, res: Response) {
         const eqs = await db?.all<TEquipment[]>('SELECT * FROM expositions') || [];
 
-        res.send({ eqs });
+        res.send(response(true, eqs));
     }
 
     async runCommand(req: Request, res: Response) {
@@ -21,8 +22,8 @@ class EquipmentHandler {
           return res.send({error: "Eq not found"});
         }
 
-        const commandRes = await EquipmentFabric.runCommand(data, body.command);
-        res.send(commandRes);
+        const result = await EquipmentFabric.runCommand(data, body.command);
+        res.send(result);
     }
 
     // async runCommandAll(req: Request, res: Response) {

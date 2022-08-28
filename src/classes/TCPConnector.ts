@@ -12,6 +12,7 @@ export default class TCPConnector {
     this.data = eq;
     this.instance = new net.Socket();
 
+    // ! раскоментить для прода
     // this.connect();
   }
 
@@ -31,20 +32,24 @@ export default class TCPConnector {
   protected powerOn(request: string) {
     db?.run(`UPDATE expositions SET status = '${EqCommand.On}' WHERE id= ${this.data.id}`);
   
+    // ! раскоментить для прода
     // return new Promise<boolean>((resolve, reject) => {
     //   resolve(this.instance.write(request));
     // });
 
+    // ! закоментить для прода
     return Promise.resolve(true);
   }
 
   protected powerOff(request: string) {
     db?.run(`UPDATE expositions SET status = '${EqCommand.Off}' WHERE id= ${this.data.id}`);
 
+    // ! раскоментить для прода
     // return new Promise<boolean>((resolve, reject) => {
     //   resolve(this.instance.write(request));
     // });
 
+    // ! закоментить для прода
     return Promise.resolve(true);
   }
 }
