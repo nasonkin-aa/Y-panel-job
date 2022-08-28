@@ -7,6 +7,12 @@ async function switchStatus(target, id) {
 
     target.classList.toggle('active');
     target.dataset.status = isActive ? 'off' : 'on';
+
+    if (isActive) {
+      target.innerHTML = 'Включить';
+    } else {
+      target.innerHTML = 'Выключить'
+    }
   } catch (error) {
     console.error(error);
   }
@@ -23,6 +29,12 @@ async function switchStatusForGroup(group, status) {
     else el.classList.remove('active');
 
     el.dataset.status = status;
+
+    if (status === 'on') {
+      el.innerHTML = 'Выключить';
+    } else {
+      el.innerHTML = 'Включить'
+    }
   })
 }
 

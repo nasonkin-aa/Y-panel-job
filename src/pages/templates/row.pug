@@ -12,4 +12,9 @@
       data-status= eq.status
       onclick="switchStatus(this," + eq.id + ")"
       class= eq.status == "on" ? "active" : ""
-    ) Включить
+    )
+      if eq.status == "on"
+        span Выключить
+      else
+        span Включить
+      
