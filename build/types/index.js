@@ -8,3 +8,11 @@ export var EqTypes;
     EqTypes[EqTypes["InteractiveFloor"] = 6] = "InteractiveFloor";
     EqTypes[EqTypes["WorldInDropWater"] = 7] = "WorldInDropWater";
 })(EqTypes || (EqTypes = {}));
+export var EqCommand;
+(function (EqCommand) {
+    // base commands
+    EqCommand["Off"] = "off";
+    EqCommand["On"] = "on";
+    // Barco commands
+    EqCommand["GetHumidity"] = "getHumidity";
+})(EqCommand || (EqCommand = {}));

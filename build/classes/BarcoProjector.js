@@ -5,8 +5,10 @@ export default class BarcoProjector extends TCPConnector {
     }
     off() {
         return super.powerOff("{\"jsonrpc\": \"2.0\", \"method\": \"system.poweroff\"}");
+        //("{\"jsonrpc\": \"2.0\",\"method\": \"environment.getcontrolblocks\",\"id\": \"2\",\"params\": {\"type\": \"Sensor\",\"valuetype\": \"Humidity\"}");
     }
-    humidity() {
-        return this.instance.write("{\"jsonrpc\": \"2.0\",\"method\": \"environment.getcontrolblocks\",\"id\": 2,\"params\": {\"type\": \"Sensor\",\"valuetype\": \"Humidity\"}}");
+    getHumidity() {
+        //return (Math.random() * 9 + 1).toString();
+        return super.humidityCheck(("{\"jsonrpc\": \"2.0\",\"method\": \"environment.getcontrolblocks\",\"id\": \"2\",\"params\": {\"type\": \"Sensor\",\"valuetype\": \"Humidity\"}"));
     }
 }

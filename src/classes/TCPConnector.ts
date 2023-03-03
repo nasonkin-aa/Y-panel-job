@@ -13,7 +13,7 @@ export default class TCPConnector {
     this.instance = new net.Socket();
 
     // ! раскоментить для прода
-    // this.connect();
+    this.connect();
   }
 
 
@@ -33,23 +33,34 @@ export default class TCPConnector {
     db?.run(`UPDATE expositions SET status = '${EqCommand.On}' WHERE id= ${this.data.id}`);
   
     // ! раскоментить для прода
-    // return new Promise<boolean>((resolve, reject) => {
-    //   resolve(this.instance.write(request));
-    // });
+    return new Promise<boolean>((resolve, reject) => {
+      resolve(this.instance.write(request));
+    });
 
     // ! закоментить для прода
-    return Promise.resolve(true);
+   // return Promise.resolve(true);
   }
 
   protected powerOff(request: string) {
     db?.run(`UPDATE expositions SET status = '${EqCommand.Off}' WHERE id= ${this.data.id}`);
 
     // ! раскоментить для прода
-    // return new Promise<boolean>((resolve, reject) => {
-    //   resolve(this.instance.write(request));
-    // });
+     return new Promise<boolean>((resolve, reject) => {
+       resolve(this.instance.write(request));
+     });
 
     // ! закоментить для прода
-    return Promise.resolve(true);
+    //return Promise.resolve(true);
+  }
+  protected humidityCheck(request: string) {
+    db?.run(`UPDATE expositions SET status = '${EqCommand.Off}' WHERE id= ${this.data.id}`);
+
+    // ! раскоментить для прода
+     return new Promise<boolean>((resolve, reject) => {
+       resolve(this.instance.write(request));
+     });
+
+    // ! закоментить для прода
+    //return Promise.resolve(true);
   }
 }

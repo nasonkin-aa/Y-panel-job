@@ -7,13 +7,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import sqlite3 from 'sqlite3';
-import { open } from 'sqlite';
-let db = null;
-const openDB = () => __awaiter(void 0, void 0, void 0, function* () {
-    db = yield open({
-        filename: 'src/db/expositions.db',
-        driver: sqlite3.Database,
-    });
-});
-export { openDB, db, };
+import { db } from "../db";
+import { response } from "../utils";
+export default class PagesHandler {
+    static main(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const result = (yield (db === null || db === void 0 ? void 0 : db.all('SELECT * FROM expositions'))) || [];
+            // im sorry for any type
+            const eqs = result.reduce((prev, curr) => {
+                const num = curr.number.trim();
+                (prev[num] = prev[num] || []).push(curr);
+                return prev;
+            }, {});
+            res.render('main', response(true, eqs));
+        });
+    }
+}

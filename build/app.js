@@ -7,7 +7,9 @@ const PORT = process.env.PORT || 3000;
 process.on('uncaughtException', function (err) {
     console.log('Caught exception: ', err);
 });
-app.use(express.static('./public'));
+// app.use(express.static('./public'));
+app.set('views', 'src/pages/views');
+app.set('view engine', 'pug');
 app.use(router);
 app.use(cors());
 openDB()

@@ -21,10 +21,10 @@ export default class HTTPConnector {
   protected async powerOn(request: string) {
     try {
       // ! раскоментить для прода
-      // const res = await this.instance.get(request);
+      const res = await this.instance.get(request);
 
       // ! закоментить для прода
-      const res = { data: 'dsfsdf' };
+      //const res = { data: 'dsfsdf' };
 
       if (res.data) {
         db?.run(`UPDATE expositions SET status = '${EqCommand.On}' WHERE id= ${this.data.id}`);
@@ -41,9 +41,9 @@ export default class HTTPConnector {
   protected async powerOff(request: string) {
     try {
       // ! раскоментить для прода
-      // const res = await this.instance.get(request);
+      const res = await this.instance.get(request);
       // ! закоментить для прода
-      const res = { data: 'dsfsdf' };
+      //const res = { data: 'dsfsdf' };
 
       if (res.data) {
         db?.run(`UPDATE expositions SET status = '${EqCommand.Off}' WHERE id= ${this.data.id}`);

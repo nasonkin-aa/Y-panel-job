@@ -8,51 +8,50 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import axios from 'axios';
-import EquipmnetInstance from '../handlers/EquipmnetInstance';
+import { EqCommand } from '../types';
+import { db } from '../db';
 export default class HTTPConnector {
     constructor(eq) {
-        this.instance = axios;
-        this.ip = '';
-        this.port = 0;
-        this.ip = eq.ip;
-        this.port = eq.port;
-        this.name = eq.name;
-        this.id = eq.id;
-        this.type = eq.type;
-        this.number = eq.number;
-        // this.instance.create({
-        //   baseURL: this.port ? `http://${this.ip}:${this.port}` : `http://${this.ip}`,timeout: 1000,
-        // });
+        this.data = eq;
+        const baseURL = `http://${this.data.ip}`;
+        this.instance = axios.create({
+            baseURL,
+        });
     }
     powerOn(request) {
         return __awaiter(this, void 0, void 0, function* () {
-            EquipmnetInstance.getInstance().setEquipment(this.id);
-            const res = yield this.instance.get(`http://${this.ip}` + request);
-            if (res.data)
-                return true;
+            try {
+                // ! раскоментить для прода
+                const res = yield this.instance.get(request);
+                // ! закоментить для прода
+                //const res = { data: 'dsfsdf' };
+                if (res.data) {
+                    db === null || db === void 0 ? void 0 : db.run(`UPDATE expositions SET status = '${EqCommand.On}' WHERE id= ${this.data.id}`);
+                    return true;
+                }
+            }
+            catch (error) {
+                console.error(error);
+            }
             return false;
-            //! сверху вариант для реал лайф теста
-            //! Ниже для домашнего
-            // return new Promise<boolean>((resolve, reject) => {
-            //   //! Ниже для домашнего
-            //   //resolve(true);
-            // });
         });
     }
     powerOff(request) {
         return __awaiter(this, void 0, void 0, function* () {
-            EquipmnetInstance.getInstance().delEquipment(this.id);
-            const res = yield this.instance.get(`http://${this.ip}` + request);
-            if (res.data)
-                return true;
+            try {
+                // ! раскоментить для прода
+                const res = yield this.instance.get(request);
+                // ! закоментить для прода
+                //const res = { data: 'dsfsdf' };
+                if (res.data) {
+                    db === null || db === void 0 ? void 0 : db.run(`UPDATE expositions SET status = '${EqCommand.Off}' WHERE id= ${this.data.id}`);
+                    return true;
+                }
+            }
+            catch (error) {
+                console.error(error);
+            }
             return false;
-            //! сверху вариант для реал лайф теста
-            //! Ниже для домашнего
-            // return new Promise<boolean>((resolve, reject) => {
-            //   //! Ниже для домашнего
-            //  // resolve(true);
-            // });
         });
     }
-    connect() { }
 }
